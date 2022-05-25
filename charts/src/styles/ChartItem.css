@@ -1,0 +1,16 @@
+.chartItemContainer{
+    background: #303655;
+    color: #FFF;
+    margin-bottom: 16px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+ .chartItemContainer:nth-child(2n){
+     margin-left: 16px;
+}
+
+ .chartItemContainer > div {
+     height: 250px;
+ }
