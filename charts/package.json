@@ -41,6 +41,8 @@
     ]
   },
   "devDependencies": {
-    "echarts": "^5.3.2"
+    "echarts": "^5.3.2",
+    "jest-watch-typeahead": "^0.6.5",
+    "react-test-renderer": "^18.1.0"
   }
 }

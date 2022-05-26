@@ -2,21 +2,28 @@ import * as echarts from 'echarts';
 
 type EChartsOption = echarts.EChartsOption;
 
-const setChart = (id: string) => {
+const setChart = (id: string, dataX: string[], dataY: number[]) => {
     const chartDom = document.getElementById(id)!;
+    if(chartDom) {
+        echarts.dispose(chartDom)
+
     const Chart = echarts.init(chartDom);
     let option: EChartsOption;
 
-    let base = +new Date(1968, 9, 3);
-    let oneDay = 24 * 3600 * 1000;
-    let date = [];
+    // Rebuild the yAxis values because they might be too big to fit
+    const getValue = (value: number): string => {
+        if (value === 0) {
+            return value.toString()
+        }else if (value >= 1000 && value < 1000000) {
+            return value / 1000 + 'K'
+        }else if (value >= 1000000 && value < 1000000000) {
+            return value / 1000000 + 'M'
+        }else if (value >= 1000000000 && value < 1000000000000) {
+            return value / 1000000000 + 'B'
+        }else{
+            return ''
+        }
 
-    let data = [Math.random() * 300];
-
-    for (let i = 1; i < 20; i++) {
-        var now = new Date((base += oneDay));
-        date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-        data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
     }
 
     option = {
@@ -29,11 +36,41 @@ const setChart = (id: string) => {
         xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: date
+            data: dataX,
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: '#464a76'
+                }
+            },
+            axisTick: {
+                show: false,
+            },
+            axisLabel: {
+                color: '#95a5d8'
+            }
         },
         yAxis: {
             type: 'value',
-            boundaryGap: [0, '100%']
+            boundaryGap: [0, '100%'],
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    color: '#464a76'
+                }
+            },
+            axisLabel: {
+                color: '#95a5d8',
+                formatter: (value: number) => {
+                    return getValue(value)
+                }
+            }
+        },
+        grid: {
+            top: '15px',
+            right: '35px',
+            bottom: '45px',
+            left: '45px'
         },
         series: [
             {
@@ -56,12 +93,13 @@ const setChart = (id: string) => {
                         }
                     ])
                 },
-                data: data
+                data: dataY
             }
         ]
     };
 
     option && Chart.setOption(option);
+    }
 }
 
 

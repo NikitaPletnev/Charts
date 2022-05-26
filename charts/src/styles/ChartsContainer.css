@@ -1,6 +1,47 @@
+
+body::-webkit-scrollbar {
+    width: 0.5em;
+    background: #262a43;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #3e3a67;
+    border-radius: 8px;
+}
 .container {
     background: #262a43;
     padding: 30px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    overflow: hidden;
 }
+
+@media screen and (max-width: 1024px) {
+    .container {
+        grid-template-columns: 1fr
+    }
+}
+
+.chartItemContainer{
+    background: #303655;
+    color: #FFF;
+    margin-bottom: 16px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+.chartItemContainer:nth-child(2n){
+    margin-left: 16px;
+}
+
+.chartItemContainer > div {
+    height: 250px;
+}
+
+@media screen and (max-width: 1024px) {
+    .chartItemContainer:nth-child(2n){
+        margin-left: 0;
+    }
+}
+
